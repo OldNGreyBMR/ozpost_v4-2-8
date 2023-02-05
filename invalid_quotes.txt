@@ -1,0 +1,29 @@
+Although all care has been taken to ensure that all quotes a 'valid' there are times where you'll
+find that things just aren't right.  
+
+The most common cause for invalid quotes is because the 'kilos/grams' setting is incorrect.
+  
+    Although zen-cart appears to use 'lbs' as its default weight, this is little more 
+    than a 'display' value. The actual weight is basically a number of 'units'.  EG, 
+    if you set an items weight as "10", this could be 10lbs, 10gms, or 10kgs.  
+    
+    The ozpost module assumes your weights are either grams or kilos (not lbs), but it
+    is up to you to specify the correct option when you configure the module.
+    
+    Tip: If you haven't entered any product data yet, use the following rule of thumb: 
+	If *most* of your products weight 1kg or more, use 'kilos'.  
+	If *most* of your products weight less than 1kg, use 'grams'.  
+	
+	If you have already entered product weight data then choose the setting that matches the data you have input. 
+	  
+    Whatever you elect to use KEEP YOUR WEIGHTS CONSISTANT.  Don't try to use grams for some items, and 
+    kilos for others because it isn't going to work correctly. 
+    
+    Almost any invalid quote can usually be identified by temporarily enabling the 'debug' option 
+    to see exactly what data is being sent to the servers. 
+
+Tip: The ozpost installation code will update the languages/english file to reflect the weight format defined
+in the ozpost module. If you change this setting you should then perform the 'remove' and 'install' keypresses 
+to ensure this file is kept up to date.   
+     
+

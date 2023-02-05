@@ -1,0 +1,43 @@
+ BMH notes included *** important 2023-02-05
+ ==========================================
+ NOTE: This upgrade is for existing customers of OzPost only. OzPost is hosted by MBH My Business Hosting (http://www.mybusinesshosting.com.au) following the passing of the original author, Rod Glasson. No new Customer subscriptions are possible.
+ 
+Installation: Copy the following files to your store (keeping the same folder hierarchy)
+Required:  includes/modules/shipping/ozpost.php
+           includes/modules/shipping/ozpost.inc
+           includes/languages/english/modules/shipping/ozpost.php
+Optional:  images/icons/ozpost_*.* 
+
+This version merely corrects some code for ZenCart157d and ZenCart 158 and PHP compatibility with 7.4, 8.0, 8.1 and 8.2
+================================
+
+
+Previous installation notes below
+
+Log into your store and select modules/shipping, locate this module (Ozpost MultiQuote), 
+click 'Install' button, and set your shipping methods and packaging & handling fees.  
+----------------   Notes -----------------
+This module will modify the following core files during installation:
+
+    /admin/includes/languages/english/product.php
+    /admin/includes/modules/update_product.php
+    /admin/includes/modules/product/collect_info.php 
+    /includes/templates/CUSTOM/templates/tpl_modules_shipping_estimator.php 
+*** BMH ** found
+    /includestemplates/bmh_bootstrap/templates/tpl_checkout_payment_default.php_ozpRestore
+
+		
+The original files will be backed up prior to these modifications taking
+place. The backups are called:  original_filename.php_ozpRestore 
+DO NOT DELETE THESE BACKUP FILES, they are used to restore your
+system to its original state if/when you un install OzPost via the control panel. 
+
+The following NEW files are created during installation:
+    /admin/clicknsend.php
+    /admin/includes/extra_datafiles/clicknsend.php
+    /admin/includes/functions/extra_functions/init_clicknsend_dhtml.php  (V1.5 and above) 
+    /admin/includes/boxes/extra_boxes/clicknsend_customers_dhtml.php     (V1.3.9 and below)
+These will be automatically removed if/when you uninstall OzPost via your control panel.
+
+Please report any installation issues to support@ozpost.net
+

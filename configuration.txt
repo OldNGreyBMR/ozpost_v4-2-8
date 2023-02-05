@@ -1,0 +1,236 @@
+Configuration options / notes
+-------------
+GST
+If you are registered for GST please set the appropriate tax class for your particular setup.  
+This does not affect the *quotations* in any way, but it does affect the GST is processed in calculations/reports, etc  
+
+Dimensions
+Please set some *default* dimensions for the parcels that you will be mailing out. These dimensions are used
+when there are no dimensions found for a specific product.  It is not possible to quote an item with no dimensions. 
+Note: Dimensions are in centimeters.
+
+Weights: 
+The 'default' weight setting is used where the individual products don't have their own weight applied. 
+Setting this to zero will allow special actions to be taken if the products weights are also zero (such as triggering an alert, 
+or eliminated the item from the shipping calculations).  
+
+COD
+Although this module offers COD as a _shipping method_, if you wish to use it, you will also need 
+to install/activate the COD _payment_ module, available from www.zen-cart.com  (but DON'T assign any fees or charges to it).
+This apparent duplication is required because after selecting a shipping method (in this case COD), the next screen 
+presented is the payment options (along with provision for gift voucher and coupon redemptions). Without a 
+COD option on this screen too, a COD paying customer will never be able to check-out.  
+
+DEBUG 
+If enabled this module will echo a considerable amount of debugging information to the screen. You'll find this very useful if
+things aren't working correctly. It is also invaluable if you wish to see how multiple items are being packed/stacked. 
+
+Admin section: 
+The products database will have 4 new fields added (length, height, width & dangerous_goods) when you install this module. 
+These fields are NOT removed if you uninstall this module. 
+No harm is done by leaving them intact, and if you did enter data into these fields you probably wouldn't want them removed anyway.   
+
+Dimensions for individual products are an over-ride of the default dimensions (see above), 
+they can be added or edited via the usual admin interface.     
+
+Dangerous Goods: 
+Dangerous Goods can't be Air mailed, and not all Couriers will take them.
+Setting this to Yes prevents these methods from being supplied if this product as added to the customers cart. 
+                                 
+ALLOW and HIDE explained.
+To gain maximum benefit from the ozpost module/server it will help if you understand how it works, especially in
+regards as to why we allow some methods yet wish to hide them at the same time.
+
+The way it works is this:
+After the 'parcel' has been created by the client (your store), it sends the parcel weights, dimensions, and a few other
+details to our server.  The server then returns a list of shipping methods that are POSSIBLE for that particular parcel,
+if it is a small item, it may be possible to send it as a letter, it may also be sent in a
+prepaid satchel, or it may need to go as a parcel of some type.. all of these *possible* methods are returned
+to your store where they are compared with the methods that you *allow*, and if there is a match, the
+method is shown to the customer.  No match = no show, so by DE-SELECTING (or leaving de-selected) a method
+means that it will never be displayed under any circumstances. IOW, you are selecting the methods you wish to ALLOW.
+
+Now, suppose your 'parcel' is small enough to be considered a large letter, as mentioned above, the server will
+return all the *possible* methods, but more often than not, if an item can be sent as a letter it would be silly to
+showing the satchel and/or parcel rates, so by setting the 'hide parcel rates if letter sized' causes the SERVER to
+*only* return the letter rates, and nothing larger...   likewise, by setting the 'hide parcel rates if satchel sized'
+will cause the SERVER to only return the satchel rates and not the parcel rates, setting the 'hide courier if Australia Post can handle it
+will ensure that the courier quotes won't show if AP can handle it.
+By combining these allow/hide features you can support over 50 different shipping methods while providing your
+customer only 2 or 3 choices at any given time.
+
+Note: If quotes fail to show when expected it is often because a legitimate method (such as letters) has been disallowed, and all other methods
+have been 'hidden'. Under this condition the module falls back to the static rates, which is usually NOT what you want.
+ 
+Use Core Weight:
+Under 'normal conditions', the shopping cart core code calculates the number of
+parcels needed, and their weights, based on the settings in the
+shipping/packing configuration. It then makes this information available to
+the shipping module(s).
+This isn't/wasn't really suitable for my (our?) needs, where the total weight
+and volume is more important  than the number of calculated parcels and the
+average weight, so up until recently (V2.0.8)  ozpost ignored the zencart
+supplied values and calculated its own (the main end difference being with
+the tare weight values, which many found troublesome anyway).
+
+The "Use Core Weight" setting is giving back the ability to use the shopping cart
+supplied values, which also includes the creation of multiple parcels based
+on weight. The ozpost method assumes a single parcel only, regardless of
+weight.
+
+Restrain Dimensions options.
+The "Restrain Dimensions" option will limit the dimensions of any given parcel
+being quoted so that it will never fail a quote due to its size alone, for
+example, the max length item that Australia Post will accept is 105cm - so if
+the ozpost module calculates the parcel as being (say) 120cm long (which
+would normally fail to produce a quote), it will instead provide a quote for
+an item only 105cm long ... IOW, it will be quoted BASED ON WEIGHT ONLY.
+
+Up until the maximums are reached the dimensions are treated in their usual
+manner, with this option enabled, adding more items to the cart will increase
+the weight of the parcel without increasing its size any further.
+
+Update Method: 
+Setting this to 'Auto' (default) will cause the module to update itself as new releases become available. 
+Set to manual you will be notified of updates but they will not be downloaded or installed.   
+
+Remove button Action
+When set to 'complete removal' the module will delete all of its database entries and if you re-install you will also need to re-configure all of your settings. 
+When set to 'Upgrade' the 'Remove' button will create a backup of your current settings before removing itself. If you re-install (or manually upgrade) your settings will be restored (any new settings will be set at default values) 
+
+Leadtime/ Deadline  
+These are used in conjuction with each other to allow you to fine tune for next day deliveries ...  or not... 
+
+If you wish to offer NEXT DAY delivery to your customers you need to post your items on the SAME day that it is ordered (obviously?). 
+The Deadline is used to determine the cutoff time that you will accept same day mail orders. Typically 10am - midday.  This will also cater for 
+orders received overnight, as well as those that missed the previous days deadline.  
+
+If you set the LEADTIME to anything other than zero you are telling the module that no matter what time the order comes in TODAY it won't 
+be *mailed* until 'x' days have passed. 1 day = Tomorrow.    
+However, the DEADLINE is still taken into consideration, so if the order arrives after the deadline this will add another delay 
+meaning the 'next day' delivery may not even 'start' until 2 days after the order was placed.  That's the one day leadtime before
+you can post, plus another because they have missed the deadline for that days order processing.    
+
+None of this affects the actual quote of course, but it is good customer relations that if they order next day delivery before your 
+deadline they should actually expect a next day delivery, and the module should accurately report this fact. 
+In contrast, if you set a 1 day leadtime, and a deadline of (say) 1pm, and the customer orders on Thursday AM hoping for Friday delivery 
+they could be quite upset to find their overnight delivery won't arrive until the following Monday (the module will show this, if set 
+to do so of course, but is it what you *really* want?    
+
+If you don't wish to offer overnight deliveries (same day mailings) it is better to set a Deadline of (say) "0"  (midnight) so that all 
+orders received that 'day' are already too late for same day mailing, but will be suitable to mail the following day. This way any
+order received at any time on 'thursday' will be estimated using a mailing day of friday (unless you don't mail on Fridays).  
+
+The processing order is this: 
+1.  If current time is later than the deadline time then item will be mailed 'tomorrow', else it will be mailed 'today' 
+2.  If Leadtime > 0  then the item will be mailed today/tomorrow + Leadtime days.  
+3.  If mail day (today/tomorrow + Leadtime days) falls on a weekend, holiday or a day that you have indicated you 
+    don't mail then the day is incremented one day at a time until a suitable mailday is found.        
+4   The estimated delivery days are then retrieved from the various servers, added to the actual mail day, and the expected 
+    delivery day/date is presented.   
+
+You can significantly increase sales by offering (and providing) a next day delivery service. However, accurate 
+delivery estimates are essential if you do offer such a service. 
+     
+
+Customising: 
+The following defines are examples of how to override the default *descriptions* of the various shipping methods. This is useful if you wish to obfuscate identifying any particular carrier based on this information.
+
+The  examples listed are used to prevent the EGO methods from being displayed as "EGO EGO Parcel"  &  "EGO EGO Insured Parcel"
+It does this by simply changing "EGO Parcel to just "Parcel".
+
+The *carrier* names are defined in the /languages/../ozpost.php file.
+
+If you wish to change the example defines, and/or add you own you should copy them into the /languages/...../ozpost.php file so as to avoid your changes being overwritten with the next update.
+
+To add/use/create your own overrides you will first need to identify the methodID code then append "_description" to this code (as per examples).
+You should be able identify the methodID's by looking at the 'case' commands midway in the code /includes/modules/shipping/ozpost.php (about half way in).
+
+define('EGOi_description', 'Insured Parcel') ;
+define('EGO_description' , 'Parcel') ;
+define('TRD_description' , 'Parcel') ;
+define('RPP_description' , 'OzPost Regular Parcel Post') ;
+define('FWS_description' , 'SlowWay bags') ;       // Fastway Satchel override
+define('FWL_description' , 'SlowWay prepaid') ;    // Fastway label override
+
+etc, etc... There are over sixty of them. Most you won't need to change.
+
+
+Click and Send 
+V3.2.0  has added functionality for Click n Send CSV data export suitable for importing into the click n send website 
+You can enable this functionality via the ozpost config settings. Once enabled, whenever *any* Austrlalia post shipping method 
+is selected by your customer the CSV file is created if it doesn't exist, and if it does exist the new data is appended
+to the existing data  
+Whenever a CVS data file exists you will find two new options under the 'customers' menu. The first option will let you 
+download the data file, the second option will allow you to delete the data file. In order to avoid duplicate imports the data 
+file should be deleted after each succesfull download. 
+This data file will contain all possible fields needed for a successful import, but please be aware that due to the
+way the click n send importer works you will need to set the shipping method chosen by your customer after the import has been performed. 
+The primary purpose of this code is to minimise the amount of manual data entry required to create the shipping labels, etc 
+
+Although the click n send is supposed to work in conjunction with the 'ebay' type packaging, it doesn't. 
+This is a conversation I had with the click n send support people. 
+Me: 
+----------------------------------------------------------- 
+Hi, 
+
+I'm trying to adapt some software that will create a CSV file suitable
+to use with the click n send data importer. 
+
+I have read the whitepaers, etc, and am creating what appears to be
+valid data files. However, I am having an issue trying to get the system
+to recognise any valid service codes for the 'ebay' satchels and/or
+boxes. 
+
+Are these not supported by the click n send system (The only ones
+documented are 1 ECI, 2 EPI, 3 RPI, 4 Air, 5 Parcel <500gm, 6 Parcel,
+7 Express < 500gm, 8 Express, 9 Plat < 500, 10 Plat.
+
+Is there an update to these service codes? 
+
+What does the CSV file require to recognise these package types? 
+
+--------------------------------------------------
+Their reply: 
+
+Thank you for your Click and Send enquiry.
+
+The flat rate postage products are currently unable to be included in a CSV 
+file import.  These products require a product code to be entered into a 
+transaction to access the flat rate of postage, there is currently no 
+provision to enter this into the CSV file. 
+
+-----------------------------------------------
+My response: 
+
+Thanks for the reply.  
+
+   Are their other methods or another API that does allow this? 
+What does the eBay inregration use? 
+
+Thanks,
+Rod
+
+-----------------------------------------
+Their reply: 
+
+Dear Rod,
+
+There are currently no other alternatives for importing flat-rate
+products. These would be required to be entered manually.
+
+Regards,
+
+Paul
+Click and Send Helpdesk                                 
+------------------------------------------
+
+
+########################################################################### 
+
+Tip: Don't enable more couriers than you need. Each additional courier added will have a negative impact in response times. 
+
+
+
+
+

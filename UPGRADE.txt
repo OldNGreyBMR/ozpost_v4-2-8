@@ -1,0 +1,25 @@
+Version 4.2.8
+=============
+
+Upgrading from an older version of ozpost will require that
+you replace the following two files 
+
+/includes/modules/shipping/ozpost.php     (always) 
+/includes/languages/english/modules/shipping/ozpost.php. (only if new couriers have been added) 
+
+No new installations are available.
+===================================
+For a new installation log into the store admin panel and navigate to modules->shipping. 
+Select the 'Ozpost Multiquote' module and click the 'Install' button.
+
+Configure for your needs. 
+   
+If upgrading from an earlier version, check that the option 'Remove button Action' is set to 'Upgrade'  
+Click the button(s) to 'Remove' the module, then press the 'Install' button to complete the upgrade/ 
+
+Although most settings are retained during an upgrade you should *ALWAYS* log in as admin and check them.
+
+If things don't appear to function correctly after an upgrade please try doing another 'remove/install' 
+procedure from your control panel before seeking advice. 
+
+

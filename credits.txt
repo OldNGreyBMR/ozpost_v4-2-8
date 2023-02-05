@@ -1,0 +1,4 @@
+Both the server and the client software written by Rod Gasson (RodG) 2007 - 2015  rod@vcsweb.com
+New versions from 10/05/2020 are maintained by Cronomic support@ozpost.net
+Modfications to continue operating with Zen Cart v157d and Zen Cart v158 and PHP versions 7.4; 8.0; 8.1 and 8.2 made by OldNGrey BMH.
+
